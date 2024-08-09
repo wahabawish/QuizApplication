@@ -1,0 +1,114 @@
+﻿@model IEnumerable<PROJ1.Models.Question>
+
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<div id="scoreContainer" class="sticky-score">
+    <div class="container mt-5">
+        <div class="d-flex align-items-center p-3 border rounded bg-light shadow-sm">
+            <h2 class="mb-0 me-3 text-secondary">Score:</h2>
+            <h2 id="score" class="mb-0 text-primary">0</h2>
+        </div>
+    </div>
+    <input  type="hidden" id="hiddenScore" value="0" />
+
+    <p class="p-2">
+        <a asp-action="Create" class="btn btn-primary">Create New Question</a>
+    </p>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10 col-lg-10">
+                <div class="border">
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-col align-items-center question-title">
+                            <h3 class="text-danger m-3">Question</h3>
+                            <h5 class="mt-1 ml-2">@item.Question1</h5>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <button class="btn btn-outline-primary mb-2 text-left" type="button" data-value="@item.Option1" onclick="submitAnswer('@item.Answer', this)">@item.Option1</button>
+                            <button class="btn btn-outline-primary mb-2 text-left" type="button" data-value="@item.Option2" onclick="submitAnswer('@item.Answer', this)">@item.Option2</button>
+                            <button class="btn btn-outline-primary mb-2 text-left" type="button" data-value="@item.Option3" onclick="submitAnswer('@item.Answer', this)">@item.Option3</button>
+                            <button class="btn btn-outline-primary mb-2 text-left" type="button" data-value="@item.Option4" onclick="submitAnswer('@item.Answer', this)">@item.Option4</button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm flex-fill m-1 p-2">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm flex-fill m-1 p-2">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm flex-fill m-1 p-2">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    let score = parseInt(document.getElementById('hiddenScore').value);
+
+    function submitAnswer(correctAnswer, button) {
+        const buttons = button.parentElement.querySelectorAll('button');
+
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            if (btn.getAttribute('data-value') === correctAnswer) {
+                btn.classList.add('btn-success'); // Green for correct
+            } else {
+                btn.classList.add('btn-danger'); // Red for wrong
+            }
+        });
+
+        if (button.getAttribute('data-value') === correctAnswer) {
+            score++;
+            document.getElementById('score').innerText = score;
+            document.getElementById('hiddenScore').value = score;
+        }
+    }
+</script>
+
+<style>
+    .sticky-header, .sticky-score {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        padding: 10px;
+        z-index: 1000;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sticky-header {
+        display: flex;
+        justify-content: center;
+        background-color: #f8f9fa; /* Light background for the header */
+        border-bottom: 2px solid #007bff; /* Accent border color */
+    }
+
+        .sticky-header p {
+            margin: 0;
+        }
+
+        .sticky-header .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+
+    .btn-success {
+        border:solid;
+        background-color: green;
+        border-color: green;
+        color: white;
+    }
+
+    .btn-danger {
+        border: solid;
+        background-color: red;
+        border-color: red;
+        color: white;
+    }
+</style>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<PROJ1.Models.Auth>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="text-center">
+    <section class=" heightis">
+        <div class="container-fluid h-custom">
+            <div class="row justify-content-center pt-lg-5">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                         class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 border border-3 p-5 col-lg-6 col-xl-4 offset-xl-1">
+                    <form asp-action="CheckingIDs" method="post">
+                        <div class="form-outline mb-4">
+                           
+                            <input type="email" name="emis" id="form3Example3" class="form-control form-control-lg"
+                                   placeholder="Enter a valid email address" />
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <input type="password" name="passis" id="form3Example4" class="form-control form-control-lg"
+                                   placeholder="Enter password" />
+                        </div>
+
+                       @*  <button type="submit" class="btn btn-primary">Submit</button> *@
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Login
+                            </button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">
+                                Don't have an account? <a asp-area="" asp-controller="Auths" asp-action="Create" class="link-danger">Register</a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<h1>*Only For Developmental Purposes*</h1>
+<div class=" border border-2 p-3 mb-3 rounded-3">
+    
+    <p>The Emails that contains <span class="text-red">"admin"</span> in it can perform CRUD operations</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usernameis)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Passwordis)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emailis)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Usernameis
+                    </td>
+                    <td>
+                        @item.Passwordis
+                    </td>
+                    <td>
+                        @item.Emailis
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .heightis{
+        height:80vh;
+    }
+
+    .text-red{
+        color : red;
+    }
+</style>

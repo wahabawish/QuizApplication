@@ -1,0 +1,27 @@
+﻿@* @{
+    ViewData["Title"] = "Home Page";
+} *@
+
+<a class="text-decoration-none" asp-controller="Auths" asp-action="Index">
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+        <p class="intro-text text-center  ">CLICK ON QUIZ TO START</p>
+        <img src="https://www.pngmart.com/files/19/Quiz-PNG-Clipart.png" alt="QUIZ LOGO" class="img-fluid mb-4" style="max-width: 80%;" />
+    </div>
+</a>
+
+<style>
+    .intro-text {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        
+    }
+
+    .container {
+        background-color: #f8f9fa; /* Light background color */
+        padding: 20px;
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    }
+</style>
